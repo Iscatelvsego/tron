@@ -1,0 +1,205 @@
+#include <windows.h>
+#include <iostream>
+#include <math.h>
+#include "iomanip"
+using namespace std;
+double fx (double x)
+{  return cos(1.0/(log(x)/log(2.0)));
+
+
+}
+void main(){
+SetConsoleCP(1251);
+SetConsoleOutputCP(1251);
+system("mode con cols=190 lines=45");
+double ts[20][20],x,f=1,t,y=1,h=0.5;
+int k=0;
+	/*cout<<"Введите количество переменных:"<<endl;
+	cin>>n;
+	m=n+1;*/
+
+	cout<<"Для шага 0,5:"<<endl;
+	cout<<"X          :";
+for(double i=1;i<=5;i+=0.5)
+{cout.precision(5);
+cout<<setw(7)<<left<<i<<" ";}
+cout<<endl;
+cout<<"Правая     :";
+for(double i=1;i<=5;i+=0.5)
+{cout.precision(4);
+y=(fx(i+h)- fx(i))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl; 
+cout<<"Левая      :";
+for(double i=1;i<=5;i+=0.5)
+{cout.precision(4);
+y=(fx(i)- fx(i-h))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Центральная:";
+for(double i=1;i<=5;i+=0.5)
+{cout.precision(4);
+y=(fx(i+h)- fx(i-h))/(2*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Вторая     :";
+for(double i=1;i<=5;i+=0.5)
+{cout.precision(4);
+y=(fx(i+h)- 2*fx(i)+fx(i-h))/(h*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Точная     :";
+for(double i=1;i<=5;i+=0.5)
+{cout.precision(4);
+y=sin(1.0/(log(i)/log(2.0)))/  (log(2.0)*i*pow((log(i)/log(2.0)),2.0 ));
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<endl;
+	cout<<"Для шага 0,05:"<<endl;
+	cout<<"X          :";
+	h=0.05;
+for(double i=1;i<2;i+=0.05)
+{cout.precision(5);
+cout<<setw(7)<<left<<i<<" ";}
+cout<<endl;
+cout<<"Правая     :";
+for(double i=1;i<2;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl; 
+cout<<"Левая      :";
+for(double i=1;i<2;i+=0.05)
+{cout.precision(4);
+y=(fx(i)- fx(i-h))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Центральная:";
+for(double i=1;i<2;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i-h))/(2*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Вторая     :";
+for(double i=1;i<2;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- 2*fx(i)+fx(i-h))/(h*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Точная     :";
+for(double i=1;i<2;i+=0.05)
+{cout.precision(4);
+y=sin(1.0/(log(i)/log(2.0)))/  (log(2.0)*i*pow((log(i)/log(2.0)),2.0 ));
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<endl;
+cout<<"X          :";
+for(double i=2;i<3;i+=0.05)
+{cout.precision(5);
+cout<<setw(7)<<left<<i<<" ";}
+cout<<endl;
+cout<<"Правая     :";
+for(double i=2;i<3;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl; 
+cout<<"Левая      :";
+for(double i=2;i<3;i+=0.05)
+{cout.precision(4);
+y=(fx(i)- fx(i-h))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Центральная:";
+for(double i=2;i<3;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i-h))/(2*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Вторая     :";
+for(double i=2;i<3;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- 2*fx(i)+fx(i-h))/(h*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Точная     :";
+for(double i=2;i<3;i+=0.05)
+{cout.precision(4);
+y=sin(1.0/(log(i)/log(2.0)))/  (log(2.0)*i*pow((log(i)/log(2.0)),2.0 ));
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<endl;
+cout<<"X          :";
+for(double i=3;i<4;i+=0.05)
+{cout.precision(5);
+cout<<setw(7)<<left<<i<<" ";}
+cout<<endl;
+cout<<"Правая     :";
+for(double i=3;i<4;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl; 
+cout<<"Левая      :";
+for(double i=3;i<4;i+=0.05)
+{cout.precision(4);
+y=(fx(i)- fx(i-h))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Центральная:";
+for(double i=3;i<4;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i-h))/(2*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Вторая     :";
+for(double i=3;i<4;i+=0.05)
+{cout.precision(3);
+y=(fx(i+h)- 2*fx(i)+fx(i-h))/(h*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Точная     :";
+for(double i=3;i<4;i+=0.05)
+{cout.precision(4);
+y=sin(1.0/(log(i)/log(2.0)))/  (log(2.0)*i*pow((log(i)/log(2.0)),2.0 ));
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<endl;
+cout<<"X          :";
+for(double i=4;i<5;i+=0.05)
+{cout.precision(5);
+cout<<setw(7)<<left<<i<<" ";}
+cout<<endl;
+cout<<"Правая     :";
+for(double i=4;i<5;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl; 
+cout<<"Левая      :";
+for(double i=4;i<5;i+=0.05)
+{cout.precision(4);
+y=(fx(i)- fx(i-h))/h;
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Центральная:";
+for(double i=4;i<5;i+=0.05)
+{cout.precision(4);
+y=(fx(i+h)- fx(i-h))/(2*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+cout<<"Вторая     :";
+for(double i=4;i<5;i+=0.05)
+{cout.precision(3);
+y=(fx(i+h)- 2*fx(i)+fx(i-h))/(h*h);
+cout<<setw(7)<<left<<y<<" ";}
+cout<<endl;
+ cout<<"Точная     :";
+for(double i=4;i<5;i+=0.05)
+{cout.precision(4);
+y=sin(1.0/(log(i)/log(2.0)))/  (log(2.0)*i*pow((log(i)/log(2.0)),2.0 ));
+cout<<setw(7)<<left<<y<<" ";}
+
+cout<<endl;
+system("pause");
+}
