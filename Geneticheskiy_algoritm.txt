@@ -1,0 +1,271 @@
+#include <windows.h>
+#include <iostream>
+#include <math.h>
+#include "iomanip"
+#include <ctime>
+#include <conio.h>
+using namespace std;
+double fx (double x)
+{  return cos(1.0/(log(x)/log(2.0)));
+
+
+}
+void main(){
+SetConsoleCP(1251);
+SetConsoleOutputCP(1251);
+//system("mode con cols=190 lines=45");
+srand(time(NULL));
+int x,y,a[5],f=1,i=0,b[5][4],c[10][8],e[10],h[10],k[10][8];
+float d[10];
+//шаг один
+do
+{x=rand()%16;
+for(int j=0;j<i;j++)
+if(x==a[j]||x==0){f=0;break;} 
+if(f){a[i]=x; i++;}
+f=1;
+}while(i<5);
+
+for(int l=0;l<5;l++)
+{x=a[l];
+for(int j=3;j>=0;j--)
+{b[l][j]=x%2;
+x=x/2;
+}}
+for(int l=0;l<5;l++)
+{cout<<"Признак "<<l+1<<":";
+for(int j=0;j<4;j++)
+cout<<b[l][j];
+cout<<endl;}
+cout<<endl;
+
+//шаг два
+
+
+for(int j=0;j<10;j++)
+{x=rand()%5;
+y=rand()%5;
+for(int l=0;l<4;l++)
+{c[j][l]= b[x][l]; c[j][l+4]= b[y][l];}
+cout<<"Особь "<<j+1<<":";
+for(int l=0;l<8;l++)
+cout<<c[j][l];
+cout<<endl;
+}
+cout<<endl;
+
+//шаг 3
+for(int j=0;j<10;j++){
+x=0;
+for(int l=0;l<8;l++)
+{x+=c[j][l];
+d[j]=x;}
+}
+x=d[0];
+
+for(int j=1;j<10;j++)
+if(d[j]<x)x=d[j];
+
+
+cout<<"|-----------------------------------------------------|"<<endl;
+cout<<"| Особь | Сумма бит в особи | Приспособленность особи |"<<endl;
+cout<<"|-----------------------------------------------------|"<<endl;
+for(int j=0;j<10;j++){
+cout<<"|   "<<j<<"   |         "<<d[j]<<"         |         ";
+cout.precision(4);
+cout<<setw(5)<<left<<d[j]/x<<"           |"<<endl;}
+cout<<"|-----------------------------------------------------|"<<endl;
+cout<<"Минимальное значение суммы бит в популяции = "<<x<<endl;
+
+cout<<endl;
+
+//шаг 4
+for(int l=0;l<10;l++)
+{
+i=0;
+do
+{x=rand()%10;
+for(int j=0;j<i;j++)
+if(x==a[j]){f=0;break;} 
+if(f){a[i]=x; i++;}
+f=1;
+}while(i<2);
+
+if(d[a[0]]>=d[a[1]])
+h[l]=a[0];
+else h[l]=a[1];
+}
+//формирование пар
+
+i=0;
+do
+{x=rand()%10;
+for(int j=0;j<i;j++)
+{if(x==e[j]){f=0;break;} 
+if(e[j]%2==1&&e[j]==e[j-1]){f=0;break;}//не может быть в паре сама с собой
+}if(f){e[i]=x; i++;}
+f=1;
+}while(i<10);
+
+for(int j=0;j<10;j=j+2)
+{cout<<"Пары: "<<endl;
+cout<<j/2+1<<": "<<h[e[j]]<<" и "<<h[e[j+1]]<<endl;}
+
+//шаг 5
+
+for(int j=0;j<10;j=j+2)
+{
+for(int l=0;l<2;l++)
+{k[j][l]=c[h[e[j]]][l];
+k[j+1][l]=c[h[e[j+1]]][l];}
+for(int l=2;l<5;l++)
+{k[j][l]=c[h[e[j+1]]][l];
+k[j+1][l]=c[h[e[j]]][l];}
+for(int l=5;l<8;l++)
+{k[j][l]=c[h[e[j]]][l];
+k[j+1][l]=c[h[e[j+1]]][l];}
+}
+
+system("pause");
+
+cout<<"|-------------------------|"<<endl;
+cout<<"|  Родители  |   Потомки  |"<<endl;
+cout<<"|-------------------------|"<<endl;
+for(int j=0;j<10;j=j+2)
+{cout<<"| "<<j/2+1<<"-ая пара: |            |"<<endl;
+cout<<"| ";
+for(int l=0;l<2;l++)
+cout<<c[h[e[j]]][l];
+cout<<"|";
+for(int l=2;l<5;l++)
+cout<<c[h[e[j]]][l];
+cout<<"|";
+for(int l=5;l<8;l++)
+cout<<c[h[e[j]]][l];
+cout<<" |";
+for(int l=0;l<2;l++)
+cout<<k[j][l];
+cout<<"| ";
+for(int l=2;l<5;l++)
+cout<<k[j][l];
+cout<<"|";
+for(int l=5;l<8;l++)
+cout<<k[j][l];
+cout<<" |"<<endl;
+
+
+
+cout<<"| ";
+for(int l=0;l<2;l++)
+cout<<c[h[e[j+1]]][l];
+cout<<"|";
+for(int l=2;l<5;l++)
+cout<<c[h[e[j+1]]][l];
+cout<<"|";
+for(int l=5;l<8;l++)
+cout<<c[h[e[j+1]]][l];
+cout<<" |";
+for(int l=0;l<2;l++)
+cout<<k[j+1][l];
+cout<<"| ";
+for(int l=2;l<5;l++)
+cout<<k[j+1][l];
+cout<<"|";
+for(int l=5;l<8;l++)
+cout<<k[j+1][l];
+cout<<" |"<<endl;
+}
+cout<<"|-------------------------|"<<endl;
+//Поиск наиболее приспособленной особи среди потомков
+
+for(int j=0;j<10;j++){
+x=0;
+for(int l=0;l<8;l++)
+{x+=c[j][l];
+d[j]=x;}
+}
+x=d[0];
+
+for(int j=1;j<10;j++)
+if(d[j]<x)x=d[j];
+
+int max=h[0],maxt=0 ;
+
+for(int j=0;j<10;j++)
+if(h[j]>max){max=h[j];
+maxt=j;}
+
+
+//шаг 6
+i=0;
+do
+{x=rand()%8;
+for(int j=0;j<i;j++)
+if(x==a[j]|| j==maxt){f=0;break;} 
+if(f){a[i]=x; i++;}
+f=1;
+}while(i<3);
+
+ for(int j=0;j<10;j++)
+for(int l=0;l<8;l++)
+c[j][l]=k[j][l];
+
+for(int l=0;l<3;l++)
+{x=k[a[l]][1];
+y=k[a[l]][2];
+k[a[l]][1]=k[a[l]][5];
+k[a[l]][2]=k[a[l]][6];
+k[a[l]][5]=x;
+k[a[l]][6]=y;}
+
+cout<<"|-----------------------------------------|"<<endl;
+cout<<"| Номер особи | Особь  | Мутировшая особь |"<<endl;
+cout<<"|-----------------------------------------|"<<endl;
+for(int j=0;j<10;j++){
+if (j!=9)cout<<"|   "<<j+1<<"         |";
+else cout<<"|  "<<j+1<<"         |";
+for(int l=0;l<8;l++)
+cout<<c[j][l];
+cout<<"|";
+f=1;
+for(int t=0;t<3;t++){
+if(a[t]==j){
+cout<<"   "<<k[j][0]<<"|"<<k[j][1]<<k[j][2]<<"|"<<k[j][3]<<k[j][4]<<"|"<<k[j][5]<<k[j][6]<<"|"<<k[j][7]<<"   ";
+cout<<"|"<<endl;
+f=0;
+}}
+if(f){cout<<"        ";
+cout<<"          |"<<endl;}
+cout<<"|-----------------------------------------|"<<endl;
+}
+
+
+cout<<endl;
+system("pause");
+
+//шаг 7
+cout<<"|----------------------|"<<endl;
+cout<<"|    Новая популяция   |"<<endl;
+cout<<"|----------------------|"<<endl;
+cout<<"| Номер особи | Особь  |"<<endl;
+cout<<"|----------------------|"<<endl;
+for(int j=0;j<10;j++){
+if (j!=9)cout<<"|   "<<j+1<<"         |";
+else cout<<"|  "<<j+1<<"         |";
+for(int l=0;l<8;l++)
+cout<<k[j][l];
+cout<<"|"<<endl;
+cout<<"|----------------------|"<<endl;
+}
+cout<<"Мутировшие особи:"<<a[0]<<","<<a[1]<<","<<a[2]<<endl;
+cout<<"Особь с максимальной приспособленностью:"<<maxt<<endl;
+
+
+cout<<endl;
+
+
+
+
+system("pause");
+
+}
