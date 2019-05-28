@@ -1,0 +1,256 @@
+1)  УBegin.hФ
+#include <windows.h>
+#include <iostream>
+#include <ctime>
+#include <conio.h>
+using namespace std;
+int matr[45][90]={};
+class Begin {
+	public:
+		CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+		HANDLE hStdOut;
+		DWORD cWrittenChars;
+		bool mod;
+		COORD cpP,cpP2,cpC,cursorPos,cursorPos2;
+		int dir1;
+		int dir2;
+		int i;
+		WORD attr;
+	Begin () { mod=TRUE;};
+
+	void start(){
+		dir1=100; dir2=75;
+		cpP.Y = cpC.Y =cpP2.Y= 18; cpP.X= 20; cpP2.X=19;   cpC.X = 70;
+		for(int j=1;j<43;j++)
+		for(int i=1;i<88;i++)
+		matr[j][i]=0;
+	system("cls");
+	system("title Tron");
+	cursorPos.X = 89;
+	cursorPos2.X = 0;
+	 attr = 
+		BACKGROUND_RED | 
+		BACKGROUND_BLUE |
+		BACKGROUND_INTENSITY;
+
+for(int t=0;t<45;t++){
+cursorPos.Y=cursorPos2.Y  = t;
+FillConsoleOutputAttribute(hStdOut, attr, 1, cursorPos, &cWrittenChars);
+FillConsoleOutputAttribute(hStdOut, attr, 1, cursorPos2, &cWrittenChars);
+}
+FillConsoleOutputAttribute(hStdOut, attr, 89, cursorPos2, &cWrittenChars);
+cursorPos2.Y=0;
+FillConsoleOutputAttribute(hStdOut, attr, 89, cursorPos2, &cWrittenChars);
+attr = FOREGROUND_BLUE | FOREGROUND_INTENSITY |
+		BACKGROUND_RED | BACKGROUND_GREEN |
+		BACKGROUND_BLUE |
+		BACKGROUND_INTENSITY;
+	FillConsoleOutputAttribute(hStdOut, attr, 1, cpP, &cWrittenChars);
+	FillConsoleOutputCharacter(hStdOut, '@', 1, cpP, &cWrittenChars);
+	attr = FOREGROUND_GREEN | FOREGROUND_INTENSITY |
+		BACKGROUND_RED | BACKGROUND_GREEN |
+		BACKGROUND_BLUE |
+		BACKGROUND_INTENSITY;
+	FillConsoleOutputAttribute(hStdOut, attr,1 , cpC, &cWrittenChars);
+	FillConsoleOutputCharacter(hStdOut, '@', 1, cpC, &cWrittenChars);
+
+	};
+	};
+
+2)  УMenu.hФ
+#include "Begin.h"
+	class Menu:public Begin {
+	public:
+		Menu (){i=1;};
+		void computer(){
+		srand(time(NULL));
+int x=rand()%(i*10);//уровень сложности;
+int y=rand()%4;
+switch(y){
+case 0:	if (matr[cpC.Y][cpC.X+1] == 1 && x!=3) if (matr[cpC.Y][cpC.X-1] != 1) cpC.X-=1; else if(matr[cpC.Y-1][cpC.X] != 1)cpC.Y-=1; else cpC.Y+=1; else {cpC.X+=1;} 	break;
+case 1:	if (matr[cpC.Y][cpC.X-1] == 1 && x!=3) if (matr[cpC.Y][cpC.X+1] != 1) cpC.X+=1; else if(matr[cpC.Y-1][cpC.X] != 1)cpC.Y-=1; else cpC.Y+=1; else {cpC.X-=1; }	break;
+case 2:	if (matr[cpC.Y+1][cpC.X] == 1 && x!=3) if (matr[cpC.Y][cpC.X-1] != 1) cpC.X-=1; else if(matr[cpC.Y-1][cpC.X] != 1)cpC.Y-=1; else cpC.X+=1; else {cpC.Y+=1;} 	break;
+case 3:	if (matr[cpC.Y-1][cpC.X] == 1 && x!=3) if (matr[cpC.Y][cpC.X-1] != 1) cpC.X-=1; else if(matr[cpC.Y+1][cpC.X] != 1)cpC.Y+=1; else cpC.X+=1; else {cpC.Y-=1; }	break;
+
+}
+	};
+
+		void menu(){
+			system("cls");
+			system("title Tron");
+	COORD cursorPos;
+	if(i==1){
+	cursorPos.X = 0;
+	cursorPos.Y = 10;
+	SetConsoleCursorPosition(hStdOut, cursorPos);
+			  cout<<"                              #####  #####   ###   #   #"<<endl;
+			  cout<<"                                #    #   #  ## ##  ##  #"<<endl;
+			  cout<<"                                #    #####  #   #  ### #"<<endl;
+			  cout<<"                                #    ##     #   #  #####"<<endl;
+			  cout<<"                                #    # #    #   #  # ###"<<endl;
+			  cout<<"                                #    #  #   ## ##  #  ##"<<endl;
+			  cout<<"                                #    #   #   ###   #   #"<<endl;
+	cursorPos.X = 35;
+	cursorPos.Y = 20;
+	SetConsoleCursorPosition(hStdOut, cursorPos);
+		     cout<<" 1)ќдин игрок"<<endl;
+	cursorPos.Y = 25;
+	SetConsoleCursorPosition(hStdOut, cursorPos);
+		     cout<<" 2)ƒва игрока"<<endl;
+cursorPos.Y = 30;
+	SetConsoleCursorPosition(hStdOut, cursorPos);
+		cout<<" 3)¬ыход"<<endl;
+int p;		
+			 while (1) {
+				 if(kbhit()){
+		p = getch();
+if (p=='3')exit(0);		
+if (p=='2'){mod=FALSE; start(); break;}	
+if (p=='1'){mod=TRUE; start(); break;}		
+				 }}}
+cursorPos.X = 0;
+	cursorPos.Y = 20;
+	SetConsoleCursorPosition(hStdOut, cursorPos);	
+	if(i==2){
+
+		      cout<<"                        #      #####  #   #  #####  #         ###"<<endl;		   
+			  cout<<"                        #      #      #   #  #      #        #   #"<<endl;
+			  cout<<"                        #      #      #   #  #      #            # "<<endl;
+			  cout<<"                        #      #####  #   #  #####  #           #"<<endl;
+			  cout<<"                        #      #      #   #  #      #          #"<<endl;
+			  cout<<"                        #      #       # #   #      #         #"<<endl;
+			  cout<<"                        #####  #####    #    #####  #####     #####"<<endl;
+			
+	
+	}
+		if(i==3){
+			  cout<<"                              #      #####  #   #  #####  #         ###"<<endl;		   
+			  cout<<"                              #      #      #   #  #      #        #   #"<<endl;
+			  cout<<"                              #      #      #   #  #      #            # "<<endl;
+			  cout<<"                              #      #####  #   #  #####  #         ###"<<endl;
+			  cout<<"                              #      #      #   #  #      #            #"<<endl;
+			  cout<<"                              #      #       # #   #      #        #   #"<<endl;
+			  cout<<"                              #####  #####    #    #####  #####     ###"<<endl;
+				}
+ Sleep(2000);
+			 start();
+
+		}
+	
+	
+	};
+
+
+
+
+3) Ф Action.hФ
+
+#include "Menu.h"
+
+	class Action:public Menu {
+	public:
+	
+		void moveP() {
+		attr = BACKGROUND_BLUE |
+			BACKGROUND_INTENSITY;
+		FillConsoleOutputAttribute(hStdOut, attr, 1, cpP, &cWrittenChars);
+		FillConsoleOutputCharacter(hStdOut, ' ', 1, cpP, &cWrittenChars);
+		matr[cpP.Y][cpP.X] = 1;
+		switch (dir1) {
+		case 'd':cpP.X += 1; break;
+		case 'a':cpP.X -= 1; break;
+		case 'w':cpP.Y -= 1; break;
+		case 's':cpP.Y += 1; break;
+				}
+		crash(cpP,0);
+			attr = FOREGROUND_BLUE | FOREGROUND_INTENSITY |
+			BACKGROUND_RED | BACKGROUND_GREEN |
+			BACKGROUND_BLUE |
+			BACKGROUND_INTENSITY;
+		
+		FillConsoleOutputAttribute(hStdOut, attr, 1, cpP, &cWrittenChars);
+		FillConsoleOutputCharacter(hStdOut, '@', 1, cpP, &cWrittenChars);}
+	
+		void moveC(){ 
+		attr = BACKGROUND_GREEN |
+			BACKGROUND_INTENSITY;
+		FillConsoleOutputAttribute(hStdOut, attr, 1, cpC, &cWrittenChars);
+		FillConsoleOutputCharacter(hStdOut, ' ', 1, cpC, &cWrittenChars);
+	matr[cpC.Y][cpC.X] = 1;
+	if (mod)computer();
+	else
+		switch (dir2) {
+		case 77:cpC.X += 1; break;
+		case 75:cpC.X -= 1; break;
+		case 72:cpC.Y -= 1; break;
+		case 80:cpC.Y += 1; break;
+		}
+		crash(cpC,1);
+		attr = FOREGROUND_GREEN | FOREGROUND_INTENSITY |
+			BACKGROUND_RED | BACKGROUND_GREEN |
+			BACKGROUND_BLUE |
+			BACKGROUND_INTENSITY;
+		FillConsoleOutputAttribute(hStdOut, attr, 1, cpC, &cWrittenChars);
+		FillConsoleOutputCharacter(hStdOut, '@', 1, cpC, &cWrittenChars);
+	}
+
+void crash(COORD a,int p) {
+		if (matr[a.Y][a.X] == 1){
+			cout << '\a';
+		               attr = FOREGROUND_INTENSITY |
+				BACKGROUND_RED |
+				BACKGROUND_INTENSITY;
+			FillConsoleOutputAttribute(hStdOut, attr, 1, a, &cWrittenChars);
+			FillConsoleOutputCharacter(hStdOut, '*', 1, a, &cWrittenChars);
+			Sleep(2000);
+			if (mod && i<3&&p)i++; 
+			else i=1;
+		menu();
+		}
+
+	}
+
+		};
+
+»сходный код:
+#include "Action.h"
+void Keys(Action b);
+
+void main()
+{
+	setlocale(LC_ALL,"");
+
+for(int t=0;t<90;t++){
+matr[0][t]=1;
+matr[44][t]=1;
+}
+for(int t=0;t<45;t++){
+matr[t][0]=1;
+matr[t][89]=1;}
+
+	Action b;
+	system("mode con cols=90 lines=45");
+	b.hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfo(b.hStdOut, &b.csbiInfo);
+	SetConsoleTextAttribute(b.hStdOut,
+		BACKGROUND_RED | BACKGROUND_GREEN |
+		BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+
+	b.menu();
+	Keys(b);
+	
+}
+void Keys(Action b){
+int iKey=3;
+	while (iKey != 27)
+	{	if(iKey==77||iKey==72||iKey==75||iKey==80) b.dir2=iKey;
+		if(iKey=='w'||iKey=='s'||iKey=='a'||iKey=='d')b.dir1=iKey;;
+		if(iKey=='q')b.moveP();
+		if(iKey=='l')b.moveC();
+		while (!kbhit()) {
+		Sleep(100);		
+			b.moveP();
+			b.moveC();
+		}
+		iKey = getch();
+	}}
